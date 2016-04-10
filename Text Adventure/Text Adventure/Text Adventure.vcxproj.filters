@@ -44,5 +44,8 @@
     <ClInclude Include="map.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

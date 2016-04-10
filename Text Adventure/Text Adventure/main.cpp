@@ -1,18 +1,23 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include "entity.h"
 #include "map.h"
 #include "character.h"
 #include "item.h"
 #include "actions.h"
+#include <iostream>
 
-// TO DO
+using namespace std;
+
+// FINISHED
 // Data of creation map																						
 // Change according to character position																			[done]	
 // Finish movement functions																						[done]
+
+// TO DO
 // Actions																											[done move, help & look]
+// Introduce objects																								[weapons, armors, misc, puzzle items]
 
 // TO START
-// Introduce objects
 // Introduce NPCs (need to create CLASS)
 // Blocades
 
@@ -26,7 +31,7 @@ int main(void) {
 	mc.createmc();
 
 	for (int n = 0; n < 20; n++){
-		location[n].createmap(n);
+		location[n].createmap1(n);
 	}
 	
 	for (int n = 0; n < 1; n++){
@@ -36,7 +41,7 @@ int main(void) {
 	look(location, mc);
 
 	do {
-		scanf_s("%s", decision, 20);
+		cin >> decision;
 
 		action(location, mc, decision, doors);
 	} while (mc.death != 1);

@@ -1,13 +1,18 @@
+#ifndef MAP_H
+#define MAP_H
 
-class map {
+#include "entity.h"
+
+class map : public entity{
 public:
 
-	int id;
-	char name[25];
-	char description[100];
 	int north, south, east, west;
 	int items[10];
 	char* obstacle;
 
-	void createmap(int n);
+public:
+
+	void createmap1(int n);
 };
+
+#endif

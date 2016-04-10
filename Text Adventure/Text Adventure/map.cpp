@@ -1,7 +1,7 @@
 #include "map.h"
 #include <string.h>
 
-void map::createmap(int n) {
+void map::createmap1(int n) {
 	switch (n){
 	case 0:
 

@@ -1,9 +1,11 @@
 #include "map.h"
 #include "character.h"
 #include "item.h"
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
 #include "actions.h"
+#include "entity.h"
+
+using namespace std;
 
 void action(map* location, character mc, char* decision, door* doors) {
 	char dir = decision[0];
@@ -20,11 +22,11 @@ void action(map* location, character mc, char* decision, door* doors) {
 	else if (decision == "help"){
 		help();
 	}
-	else if (decision[0] == 'o' && decision[2] == 'p' && decision[3] == 'e' && decision[4] == 'n' && decision[6] == 'd' && decision[7] == 'o' && decision[8] == 'o' && decision[9] == 'r'){
+	else if (decision == "open door"){
 		opendoor(location, mc, doors);
 	}
-	else if (decision[0] == 'c' && decision[2] == 'l' && decision[3] == 'o' && decision[4] == 's' && decision[5] == 'e' && decision[7] == 'd' && decision[8] == 'o' && decision[9] == 'o' && decision[10] == 'r'){
-		opendoor(location, mc, doors);
+	else if (decision == "close door"){
+		closedoor(location, mc, doors);
 	}
 }
 
@@ -34,15 +36,15 @@ void look(map* location, character mc) {
 	for (counter = 0; location[counter].id != mc.position; counter++);
 
 	for (aux = 0; aux < strlen(location[counter].name); aux++) {
-		printf("%c", location[counter].name[aux]);
+		cout << location[counter].name[aux];
 	}
-	printf("\n");
+	cout << endl;
 
 	for (aux = 0; aux < strlen(location[counter].description); aux++) {
-		printf("%c", location[counter].description[aux]);
+		cout << location[counter].description[aux];
 	}
 
-	printf("\n");
+	cout << endl;
 }
 
 void move(map* location, character mc, char direction, door* doors) {
@@ -61,7 +63,7 @@ void move(map* location, character mc, char direction, door* doors) {
 				mc.position = location[previous].north;
 			}
 			else {
-				printf("A door is blocking your path\n");
+				cout << "A door is blocking your path" << endl;
 			}
 		}
 		else {
@@ -79,7 +81,7 @@ void move(map* location, character mc, char direction, door* doors) {
 				mc.position = location[previous].south;
 			}
 			else {
-				printf("A door is blocking your path\n");
+				cout << "A door is blocking your path" << endl;
 			}
 		}
 		else {
@@ -97,7 +99,7 @@ void move(map* location, character mc, char direction, door* doors) {
 				mc.position = location[previous].east;
 			}
 			else {
-				printf("A door is blocking your path\n");
+				cout << "A door is blocking your path" << endl;
 			}
 		}
 		else {
@@ -115,7 +117,7 @@ void move(map* location, character mc, char direction, door* doors) {
 				mc.position = location[previous].west;
 			}
 			else {
-				printf("A door is blocking your path\n");
+				cout << "A door is blocking your path" << endl;
 			}
 		}
 		else {
@@ -126,11 +128,11 @@ void move(map* location, character mc, char direction, door* doors) {
 }
 
 void help(){
-	printf("To move write n/s/e/w\n");
-	printf("To look write look\n");
-	printf("To quit write q or quit\n");
-	printf("To open a door write open door");
-	printf("To close a door write close door");
+	cout << "To move write n/s/e/w\n";
+	cout << "To look write look\n";
+	cout << "To quit write q or quit\n";
+	cout << "To open a door write open door";
+	cout << "To close a door write close door";
 }
 
 void opendoor(map* location, character mc, door* doors){

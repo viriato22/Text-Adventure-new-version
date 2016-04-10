@@ -73,6 +73,7 @@
   <ItemGroup>
     <ClInclude Include="actions.h" />
     <ClInclude Include="character.h" />
+    <ClInclude Include="entity.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="map.h" />
   </ItemGroup>
