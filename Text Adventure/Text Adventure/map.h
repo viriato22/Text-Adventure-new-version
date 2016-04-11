@@ -12,7 +12,7 @@ public:
 
 public:
 
-	void createmap1(int n);
+	void createmap(int n);
 };
 
 #endif

@@ -25,18 +25,19 @@ int main(void) {
 	int lose = 0;
 	char decision[20];
 	map* location = new map[20];
-	door* doors = new door[0];
+	door* doors = new door[1];
 	character mc;
 
 	mc.createmc();
 
 	for (int n = 0; n < 20; n++){
-		location[n].createmap1(n);
+		location[n].createmap(n);
 	}
 	
-	for (int n = 0; n < 1; n++){
+	/*for (int n = 0; n < 1; n++){
 		doors[n].createdoors(n);
-	}
+	}*/
+	doors[0].createdoors(0);
 
 	look(location, mc);
 
@@ -47,6 +48,7 @@ int main(void) {
 	} while (mc.death != 1);
 
 	delete[] location;
+	delete[] doors;	
 	system("pause");
 	return 0;
 }

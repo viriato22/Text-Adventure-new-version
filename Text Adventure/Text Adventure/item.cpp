@@ -1,5 +1,8 @@
 #include "item.h"
 #include <string.h>
+#include <iostream>
+
+using namespace std;
 
 void door::createdoors(int n){
 	switch (n){
@@ -13,5 +16,8 @@ void door::createdoors(int n){
 		room = 7;
 		direction = 3;
 		strcpy_s(name, 20, "Sturdy door");
+		break;
+	default:
+		cout << "Error: No door available" << endl;
 	}
 }

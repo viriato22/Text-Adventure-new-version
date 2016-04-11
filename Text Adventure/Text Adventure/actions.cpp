@@ -49,17 +49,17 @@ void look(map* location, character mc) {
 
 void move(map* location, character mc, char direction, door* doors) {
 	int previous = mc.position;
-	bool door;
+	bool gate = false;
 
 	switch (direction) {
 	case 'n':
 		if (location[previous].north != 33) {
 			for (int aux = 0; aux < 0; aux++){
 				if ((doors[aux].room == previous && doors[aux].direction == 0) && doors[aux].status == 0){
-					door = 1;
+					gate = true;
 				}
 			}
-			if (door != 1){
+			if (gate != true){
 				mc.position = location[previous].north;
 			}
 			else {
@@ -74,10 +74,10 @@ void move(map* location, character mc, char direction, door* doors) {
 		if (location[previous].south != 33) {
 			for (int aux = 0; aux < 0; aux++){
 				if ((doors[aux].room == previous && doors[aux].direction == 1) && doors[aux].status == 0){
-					door = 1;
+					gate = 1;
 				}
 			}
-			if (door != 1){
+			if (gate != 1){
 				mc.position = location[previous].south;
 			}
 			else {
@@ -92,10 +92,10 @@ void move(map* location, character mc, char direction, door* doors) {
 		if (location[previous].east != 33) {
 			for (int aux = 0; aux < 0; aux++){
 				if ((doors[aux].room == previous && doors[aux].direction == 2) && doors[aux].status == 0){
-					door = 1;
+					gate = 1;
 				}
 			}
-			if (door != 1){
+			if (gate != 1){
 				mc.position = location[previous].east;
 			}
 			else {
@@ -110,10 +110,10 @@ void move(map* location, character mc, char direction, door* doors) {
 		if (location[previous].west != 33) {
 			for (int aux = 0; aux < 0; aux++){
 				if ((doors[aux].room == previous && doors[aux].direction == 3) && doors[aux].status == 0){
-					door = 1;
+					gate = 1;
 				}
 			}
-			if (door != 1){
+			if (gate != 1){
 				mc.position = location[previous].west;
 			}
 			else {
