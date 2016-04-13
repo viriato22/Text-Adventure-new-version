@@ -4,6 +4,7 @@
 #include "character.h"
 #include "item.h"
 #include "actions.h"
+#include "String.h"
 #include <iostream>
 
 using namespace std;
@@ -23,7 +24,8 @@ using namespace std;
 
 int main(void) {
 	int lose = 0;
-	char decision[20];
+	char* text = new char[100];
+	String decision;
 	map* location = new map[20];
 	door* doors = new door[1];
 	character mc;
@@ -42,13 +44,18 @@ int main(void) {
 	look(location, mc);
 
 	do {
-		cin >> decision;
+		cin >> text;
+
+		decision = text;
 
 		action(location, mc, decision, doors);
 	} while (mc.death != 1);
 
+	cout << "Thanks for playing";
+
 	delete[] location;
 	delete[] doors;	
+
 	system("pause");
 	return 0;
 }

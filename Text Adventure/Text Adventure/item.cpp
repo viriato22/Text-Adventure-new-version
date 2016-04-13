@@ -10,13 +10,14 @@ void door::createdoors(int n){
 		id = 100;
 		onground = 1;
 		pickable = 0;
-		strcpy_s(description, 100, "Sturdy door\n");
+		description = "Sturdy door";
 		gate = 1;
 		status = 0;
 		room = 7;
 		direction = 3;
-		strcpy_s(name, 20, "Sturdy door");
+		name = "Sturdy door";
 		break;
+
 	default:
 		cout << "Error: No door available" << endl;
 	}

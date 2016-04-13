@@ -7,17 +7,17 @@
 
 using namespace std;
 
-void action(map* location, character mc, char* decision, door* doors) {
-	char dir = decision[0];
+void action(map* location, character& mc, String& decision, door* doors) {
+	if ((decision == "n") || (decision == "north") || (decision == "s") || (decision == "south") || (decision == "e") || (decision == "east") || (decision == "w") || (decision == "west")) {
+		char dir = decision.text[0];
 
-	if ((decision[1] == '\0') && (dir == 'n' || dir == 's' || dir == 'e' || dir == 'w')) {
 		move(location, mc, dir, doors);
 	}
 	else if (decision == "look") {
 		look(location, mc);
 	}
 	else if (decision == "q" || decision == "quit") {
-		//finish
+		mc.finish();
 	}
 	else if (decision == "help"){
 		help();
@@ -30,24 +30,24 @@ void action(map* location, character mc, char* decision, door* doors) {
 	}
 }
 
-void look(map* location, character mc) {
+void look(const map* location, const character& mc) {
 	int aux, counter;
 
 	for (counter = 0; location[counter].id != mc.position; counter++);
 
-	for (aux = 0; aux < strlen(location[counter].name); aux++) {
+	for (aux = 0; aux < location[counter].name.length(); aux++) {
 		cout << location[counter].name[aux];
 	}
 	cout << endl;
 
-	for (aux = 0; aux < strlen(location[counter].description); aux++) {
+	for (aux = 0; aux < location[counter].description.length(); aux++) {
 		cout << location[counter].description[aux];
 	}
 
 	cout << endl;
 }
 
-void move(map* location, character mc, char direction, door* doors) {
+void move(map* location, character& mc, char direction, door* doors) {
 	int previous = mc.position;
 	bool gate = false;
 
@@ -135,7 +135,7 @@ void help(){
 	cout << "To close a door write close door";
 }
 
-void opendoor(map* location, character mc, door* doors){
+void opendoor(map* location, const character& mc, door* doors){
 	for (int aux = 0; aux < 0; aux++){
 		if (doors[aux].room == mc.position && doors[aux].status != 1){
 			doors[aux].status = 1;
@@ -143,10 +143,15 @@ void opendoor(map* location, character mc, door* doors){
 	}
 }
 
-void closedoor(map* location, character mc, door* doors){
+void closedoor(map* location, const character& mc, door* doors){
 	for (int aux = 0; aux < 0; aux++){
 		if (doors[aux].room == mc.position && doors[aux].status != 0){
 			doors[aux].status = 0;
 		}
 	}
+}
+
+void teleport(map* location, character& mc, String& decision){
+	mc.position = decision.text[5];
+	look(location, mc);
 }

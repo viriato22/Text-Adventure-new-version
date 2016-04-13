@@ -7,3 +7,7 @@ void character::createmc(){
 	weight = 0;
 
 }
+
+void character::finish(){
+	death = 1;
+}

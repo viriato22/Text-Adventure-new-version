@@ -1,12 +1,14 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include "String.h"
+
 class entity{
 public:
 
 	int id;
-	char name[25];
-	char description[100];
+	String name;
+	String description;
 
 public:
 	void look();
