@@ -11,7 +11,6 @@ public:
 	char* obstacle;
 
 public:
-
 	void createmap(int n);
 };
 

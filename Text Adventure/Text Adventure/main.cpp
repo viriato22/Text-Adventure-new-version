@@ -32,9 +32,9 @@ int main(void) {
 
 	mc.createmc();
 
-	for (int n = 0; n < 20; n++){
-		location[n].createmap(n);
-	}
+	//for (int n = 0; n < 20; n++){
+	//	location.createmap(n);
+	//}
 	
 	/*for (int n = 0; n < 1; n++){
 		doors[n].createdoors(n);

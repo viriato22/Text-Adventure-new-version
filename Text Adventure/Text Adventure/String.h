@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 class String{
-public:
+private:
 	char* text;
 	unsigned int memory;
 
@@ -25,7 +25,9 @@ public:
 	const String& operator=(const String& str);
 	const String& operator=(const char* str);
 	const String& operator+=(const String& str);
-	const char operator[](int aux);
+	const char& operator[](int aux) const;
+	char& operator[](int aux);
+	String* tokenize(char* str);
 };
 
 #endif

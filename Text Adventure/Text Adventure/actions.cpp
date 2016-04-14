@@ -9,7 +9,7 @@ using namespace std;
 
 void action(map* location, character& mc, String& decision, door* doors) {
 	if ((decision == "n") || (decision == "north") || (decision == "s") || (decision == "south") || (decision == "e") || (decision == "east") || (decision == "w") || (decision == "west")) {
-		char dir = decision.text[0];
+		char dir = decision[0];
 
 		move(location, mc, dir, doors);
 	}
@@ -152,6 +152,6 @@ void closedoor(map* location, const character& mc, door* doors){
 }
 
 void teleport(map* location, character& mc, String& decision){
-	mc.position = decision.text[5];
+	mc.position = decision[5];
 	look(location, mc);
 }
