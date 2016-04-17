@@ -4,6 +4,7 @@
 #include <string.h>
 #include <assert.h>
 #include <stdio.h>
+#include "vector.h"
 
 class String{
 private:
@@ -27,7 +28,6 @@ public:
 	const String& operator+=(const String& str);
 	const char& operator[](int aux) const;
 	char& operator[](int aux);
-	String* tokenize(char* str);
 };
 
 #endif

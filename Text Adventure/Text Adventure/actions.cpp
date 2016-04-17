@@ -7,25 +7,39 @@
 
 using namespace std;
 
-void action(map* location, character& mc, String& decision, door* doors) {
-	if ((decision == "n") || (decision == "north") || (decision == "s") || (decision == "south") || (decision == "e") || (decision == "east") || (decision == "w") || (decision == "west")) {
-		char dir = decision[0];
+void tokenize(char* text, vector<String>& words){
+	char seps[] = " ,\t\n";
+	int aux = 0;
 
-		move(location, mc, dir, doors);
+	char *token = NULL;
+	char *next_token = NULL;
+
+	token = strtok_s(text, seps, &next_token);
+	words[aux++] = token;
+
+	while (token != NULL){
+		token = strtok_s(text, seps, &next_token);
+		words[aux++] = token;
 	}
-	else if (decision == "look") {
+}
+
+void action(map* location, character& mc, vector<String>& words, door* doors) {
+	if ((words[0] == "n") || (words[0] == "north") || (words[0] == "s") || (words[0] == "south") || (words[0] == "e") || (words[0] == "east") || (words[0] == "w") || (words[0] == "west")) {
+		move(location, mc, words, doors);
+	}
+	else if (words[0] == "look") {
 		look(location, mc);
 	}
-	else if (decision == "q" || decision == "quit") {
+	else if (words[0] == "q" || words[0] == "quit") {
 		mc.finish();
 	}
-	else if (decision == "help"){
+	else if (words[0] == "help"){
 		help();
 	}
-	else if (decision == "open door"){
+	else if (words[0] == "open"){
 		opendoor(location, mc, doors);
 	}
-	else if (decision == "close door"){
+	else if (words[0] == "close"){
 		closedoor(location, mc, doors);
 	}
 }
@@ -151,7 +165,7 @@ void closedoor(map* location, const character& mc, door* doors){
 	}
 }
 
-void teleport(map* location, character& mc, String& decision){
-	mc.position = decision[5];
+void teleport(map* location, character& mc, String& words){
+	mc.position = words[5];
 	look(location, mc);
 }

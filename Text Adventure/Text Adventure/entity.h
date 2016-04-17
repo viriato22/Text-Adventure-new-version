@@ -3,6 +3,13 @@
 
 #include "String.h"
 
+enum entities{
+	ENTITY,
+	CREATURE,
+	ITEM,
+	MAP
+};
+
 class entity{
 public:
 
@@ -11,7 +18,10 @@ public:
 	String description;
 
 public:
-	void look();
+	entity(int id, String name, String description);
+
+public:
+	virtual void look();
 };
 
 #endif

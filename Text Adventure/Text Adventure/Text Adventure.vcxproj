@@ -70,6 +70,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="String.cpp" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actions.h" />
@@ -78,6 +79,9 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="vector.h" />
+    <ClInclude Include="vector.hpp" />
+    <ClInclude Include="world.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

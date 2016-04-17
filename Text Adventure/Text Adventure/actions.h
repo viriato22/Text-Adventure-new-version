@@ -1,7 +1,9 @@
 #ifndef ACTIONS_H
 #define ACTIONS_H
 
-void action(map* location, character& mc, String& decision, door* doors);
+void tokenize(char* text, vector<String>& words);
+
+void action(map* location, character& mc, vector<String>& words, door* doors);
 void look(const map* location, const character& mc);
 void move(map* location, character& mc, char direction, door* doors);
 void help();

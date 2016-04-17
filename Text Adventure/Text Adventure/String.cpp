@@ -97,22 +97,3 @@ char& String::operator[](int aux){
 
 	return text[aux];
 }
-
-String* String::tokenize(char* str){
-	String* tokens = new String[20];
-	char seps[] = " ,\t\n";
-	int aux = 0;
-
-	char *token = NULL;
-	char *next_token = NULL;
-	
-	token = strtok_s(str, seps, &next_token);
-	tokens[aux++] = token;
-
-	while (token != NULL){
-		token = strtok_s(str, seps, &next_token);
-		tokens[aux++] = token;
-	}
-
-	return tokens;
-}

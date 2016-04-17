@@ -1,5 +1,9 @@
 #include "map.h"
 
+map::map(int id, String name, String description, int north, int south, int east, int west, char* obstacle) : entity(id, name, description){
+
+};
+
 void map::createmap(int n) {
 	switch (n){
 	case 0:

@@ -5,6 +5,7 @@
 #include "item.h"
 #include "actions.h"
 #include "String.h"
+#include "vector.h"
 #include <iostream>
 
 using namespace std;
@@ -25,20 +26,14 @@ using namespace std;
 int main(void) {
 	int lose = 0;
 	char* text = new char[100];
-	String decision;
+	vector<String> words;
 	map* location = new map[20];
 	door* doors = new door[1];
 	character mc;
 
 	mc.createmc();
 
-	//for (int n = 0; n < 20; n++){
-	//	location.createmap(n);
-	//}
 	
-	/*for (int n = 0; n < 1; n++){
-		doors[n].createdoors(n);
-	}*/
 	doors[0].createdoors(0);
 
 	look(location, mc);
@@ -46,9 +41,9 @@ int main(void) {
 	do {
 		cin >> text;
 
-		decision = text;
+		tokenize(text, words);
 
-		action(location, mc, decision, doors);
+		action(location, mc, words, doors);
 	} while (mc.death != 1);
 
 	cout << "Thanks for playing";
