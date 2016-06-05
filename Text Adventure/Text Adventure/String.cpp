@@ -1,99 +1,141 @@
+#include <stdio.h>
+#include <assert.h>
 #include "String.h"
 
+#define BUFFER 25
+
 String::String(){
-	memory = 1;
-	text = new char[1];
+	string = new char[BUFFER];
+	string[0] = '\0';
+	mem_size = BUFFER;
 }
 
-String::String(unsigned int aux){
-	memory = aux;
-	text = new char[aux];
-}
-
-String::String(const char* str){
-	assert(str != nullptr);
-
-	memory = (strlen(str) + 1);
-	text = new char[memory];
-
-	strcpy_s(text, memory, str);
-}
-
-String::String(const String& str){
-	assert(str.text != nullptr);
-
-	memory = str.length();
-	text = new char[memory];
-	
-	strcpy_s(text, memory, str.text);
+String::String(const char* other){
+	assert(other != NULL);
+	string = new char[strlen(other) + 1];
+	strcpy_s(string, strlen(other) + 1, other);
+	mem_size = length() + 1;
 }
 
 String::~String(){
-	delete[]text;
+	delete[] string;
 }
 
 unsigned int String::length() const{
-	return strlen(text) + 1;
+	return strlen(string);
 }
 
-bool String::empty()const{
-	return text[0] == '\0';
-}
+vector<String> String::tokenize(){
+	vector<String> words;
 
-bool String::operator==(const String& str) const{
-	return !strcmp(str.text, text);
-}
-
-bool String::operator==(const char* str) const{
-	return !strcmp(str, text);
-}
-
-const String& String::operator=(const String& str){
-	if (memory < str.length()){
-		delete[]text;
-		memory = str.length();
-		text = new char[memory];
+	for (int i = 0; string[i] != '\0'; i++){
+		if ((string[i] > 'A') && (string[i] < 'Z')) string[i] = string[i] + 32;
 	}
 
-	strcpy_s(text, str.length(), str.text);
+	String aux;
+
+	for (int i = 0; string[i] != '\0'; i++){
+		if (string[i] != ' ' && string[i] != ',' && string[i] != ';' && string[i] != ':'){
+			aux += string[i];
+		}
+		else{
+			aux += '\0';
+			words.pushback(aux);
+			aux = "\0";
+		}
+	}
+
+	aux += '\0';
+	words.pushback(aux);
+
+	return words;
+}
+
+void String::tokenize(vector<String>& words){
+	words.num_elements = 0;
+
+	for (int i = 0; string[i] != '\0'; i++){
+		if ((string[i] > 'A') && (string[i] < 'Z')) string[i] = string[i] + 32;
+	}
+
+	String aux;
+
+	for (int i = 0; string[i] != '\0'; i++){
+		if (string[i] != ' ' && string[i] != ',' && string[i] != ';' && string[i] != ':'){
+			aux += string[i];
+		}
+		else{
+			words.pushback(aux);
+			aux = "\0";
+		}
+	}
+	words.pushback(aux);
+}
+
+bool String::operator== (const char *other) const{
+	if (strcmp(string, other)) return 0;
+	else return 1;
+}
+
+bool String::operator== (const String& other) const{
+	if (strcmp(string, other.string)) return 0;
+	else return 1;
+}
+
+bool String::operator!= (const char *other) const{
+	if (strcmp(string, other)) return 1;
+	else return 0;
+}
+
+bool String::operator!= (const String& other) const{
+	if (strcmp(string, other.string)) return 1;
+	else return 0;
+}
+
+const String& String::operator= (const char *other){
+	if (mem_size < strlen(other) + 1){
+		delete[] string;
+		string = new char[strlen(other) + 1];
+		mem_size = length() + 1;
+	}
+	strcpy_s(string, strlen(other) + 1, other);
+
 	return *this;
 }
 
-const String& String::operator=(const char* str){
-	if (memory < strlen(str)){
-		delete[]text;
-		memory = strlen(str);
-		text = new char[memory];
+const char String::operator[] (const int& aux) const{
+	return string[aux];
+}
+
+bool String::operator+= (const char& key){
+	int size = length();
+
+	if (mem_size < size + 2){
+		String temp = string;
+		delete[] string;
+		string = new char[size + 8];
+		mem_size = size + 8;
+		for (int aux = 0; aux < temp.length(); aux++){
+			string[aux] = temp[aux];
+		}
 	}
 
-	strcpy_s(text, (strlen(str) + 1), str);
-	return *this;
+	string[size] = key;
+	string[size + 1] = '\0';
+	return true;
 }
 
-const String& String::operator+=(const String& str){
-	assert(str.text != nullptr);
-
-	int size = str.length() + length() - 1;
-
-	if (size > memory){
-		char* aux = text;
-		delete[]text;
-		text = new char[size];
+bool String::operator-- (){
+	if (length() > 0){
+		string[length() - 1] = '\0';
+		return true;
 	}
-
-	strcat_s(text, str.length(), str.text);
-
-	return *this;
+	else{
+		return false;
+	}
 }
 
-const char& String::operator[](int aux) const{
-	assert(text != nullptr);
-
-	return text[aux];
-}
-
-char& String::operator[](int aux){
-	assert(text != nullptr);
-
-	return text[aux];
+bool String::clear(){
+	string[0] = '\0';
+	return true;
 }

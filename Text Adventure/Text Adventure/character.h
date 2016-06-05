@@ -1,16 +1,20 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef character_H
+#define character_H
 
-class character {
+#include "entity.h"
+
+using namespace std;
+
+class character : public entity{
 public:
-	int position;
-	int weight;
-	int inventory[10];
-	int death;
+	character(const char* name, const char* description, int position);
+	~character();
 
 public:
-	void createmc();
-	void finish();
+	void look(const vector<String>& words, const vector<entity*> things) const;
+	bool move(const vector<String>& words, const vector<entity*>& things);
+	bool lock(const vector<String>& words, vector<entity*>& things);
+	bool unlock(const vector<String>& words, vector<entity*>& things);
 };
 
 #endif

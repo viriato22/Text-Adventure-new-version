@@ -2,32 +2,35 @@
 #define STRING_H
 
 #include <string.h>
-#include <assert.h>
-#include <stdio.h>
 #include "vector.h"
 
 class String{
+public:
+	char* string;
+	
 private:
-	char* text;
-	unsigned int memory;
-
+	unsigned int mem_size;
+	
 public:
 	String();
-	String(unsigned int aux);
-	String(const char* str);
-	String(const String& str);
-	~String();
+	String(const char* str); 
+	virtual ~String();
 
 public:
-	unsigned int length()const;
-	bool empty()const;
-	bool operator==(const String& str)const;
-	bool operator==(const char* str)const;
-	const String& operator=(const String& str);
-	const String& operator=(const char* str);
-	const String& operator+=(const String& str);
-	const char& operator[](int aux) const;
-	char& operator[](int aux);
+	bool operator== (const char *other) const; 
+	bool operator== (const String& other) const;
+	bool operator!= (const char *other) const;
+	bool operator!= (const String& other) const;
+	bool operator+= (const char& key);
+	const String& operator= (const char* str);
+	const char operator[] (const int& aux) const;
+	bool operator-- ();
+
+public:
+	unsigned int length() const;
+	vector<String> tokenize();
+	void tokenize(vector<String>& words);
+	bool clear();
 };
 
 #endif

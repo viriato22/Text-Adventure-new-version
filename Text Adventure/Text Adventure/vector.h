@@ -1,11 +1,11 @@
-#ifndef vector_H
-#define vector_H
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #include <assert.h>
 #include "String.h"
 
 #define uint unsigned int
-#define BLOCK 10 
+#define BLOCK 50
 
 template <class TYPE>
 class vector{
@@ -18,20 +18,25 @@ public:
 	vector();
 	vector(const vector& v);
 	vector(uint size);
-	~vector();
+	virtual ~vector();
 
 public:
-	void pushback(const TYPE num);
-	void pushfront(const TYPE num);
-	bool popback(TYPE& data);
+	void pushback(const TYPE& data);
+	void pushback(const char& data);
+	void pushfront(const TYPE& data);
+	bool popback();
 	bool popfront(TYPE& data);
+	void pop(const uint num);
+	int size();
+
+public:
 	TYPE& operator[] (uint index);
 	const TYPE& operator[] (uint index) const;
-	void tokenize(char* text, vector<TYPE>& words);
-	// Empty, clean(destroy all the elements), size, capacity, at(), shrink_to_fit();
-	void read();
+	void clean() const;
+
+	// Empty, size, capacity, at(), shrink_to_fit();
 };
 
 #include "vector.hpp"
 
-#endif
+#endif //VECTOR_H

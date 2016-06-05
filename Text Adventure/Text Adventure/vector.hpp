@@ -15,8 +15,7 @@ vector<TYPE>::vector(const vector& v){
 }
 
 template <class TYPE>
-vector<TYPE>::vector(uint size){
-	capacity = size;
+vector<TYPE>::vector(uint size) : capacity(size){
 	buffer = new TYPE[capacity];
 }
 
@@ -26,7 +25,7 @@ vector<TYPE>::~vector(){
 }
 
 template <class TYPE>
-void vector<TYPE>::pushback(const TYPE num){
+void vector<TYPE>::pushback(const TYPE& data){
 	TYPE* aux;
 	if (num_elements == capacity){
 		capacity += 10;
@@ -36,13 +35,14 @@ void vector<TYPE>::pushback(const TYPE num){
 		buffer = aux;
 	}
 
-	buffer[num_elements] = num;
+	buffer[num_elements] = data;
 	num_elements++;
 }
 
 template <class TYPE>
-void vector<TYPE>::pushfront(const TYPE num){
-	if (num_elements == capacity)	{
+void vector<TYPE>::pushback(const char& data){
+	TYPE* aux;
+	if (num_elements == capacity){
 		capacity += 10;
 		TYPE* aux = new TYPE[capacity];
 		for (int i = 0; i < num_elements; i++) aux[i] = buffer[i];
@@ -50,27 +50,37 @@ void vector<TYPE>::pushfront(const TYPE num){
 		buffer = aux;
 	}
 
-	for (int i = num_elements; i > 0; i--){
-		buffer[i] = buffer[i - 1];
-	}
-
-	buffer[0] = num;
+	buffer[num_elements] = data;
 	num_elements++;
 }
 
 template <class TYPE>
-bool vector<TYPE>::popback(TYPE& data){
-	if (num_elements > 0){
-		data = buffer[--num_elements];
+void vector<TYPE>::pushfront(const TYPE& data){
+	if (num_elements == capacity){
+		capacity += 10;
+		TYPE* aux = new TYPE[capacity];
+		for (int i = 0; i < num_elements; i++) aux[i] = buffer[i];
+		delete[] buffer;
+		buffer = aux;
 	}
 
-	return (num_elements > 0);
+	for (int i = num_elements; i > 0; i--) buffer[i] = buffer[i - 1];
+	buffer[0] = data;
+	num_elements++;
+}
+
+template <class TYPE>
+bool vector<TYPE>::popback(){
+	if (num_elements > 0){
+		data = buffer[--num_elements];
+		return true;
+	}
+	else return false;
 }
 
 template <class TYPE>
 bool vector<TYPE>::popfront(TYPE& data){
-	if (num_elements > 0)
-	{
+	if (num_elements > 0){
 		data = buffer[0];
 		for (int i = 0; i < num_elements; i++) buffer[i] = buffer[i + 1];
 		num_elements--;
@@ -80,36 +90,32 @@ bool vector<TYPE>::popfront(TYPE& data){
 }
 
 template <class TYPE>
+void vector<TYPE>::pop(const uint num){
+	if (num_elements > 0){
+		for (int i = num; i < num_elements; i++) buffer[i] = buffer[i + 1];
+		num_elements--;
+	}
+}
+
+template <class TYPE>
 TYPE& vector<TYPE>::operator[] (uint index){
-	//assert(index < num_element);
+	assert(index < num_elements);
 	return buffer[index];
 }
 
 template <class TYPE>
 const TYPE& vector<TYPE>::operator[] (uint index) const{
-	assert(index < num_element);
+	assert(index < num_elements);
 	return buffer[index];
 }
 
 template <class TYPE>
-void vector<TYPE>::tokenize(char* text, vector<TYPE>& words){
-	char* str = new char[10];
-	int aux = 0, aux2 = 0;
-	bool idea;
+void vector<TYPE>::clean() const{
+	for (int i = num_elements - 1; i >= 0; --i)
+		delete buffer[i];
+}
 
-	while (aux < strlen(text)){
-		idea = false;
-		for (aux2 = 0; text[aux] != ' ' && text[aux] != '\t' && text[aux] != ',' && text[aux] != '\n' && text[aux] != '\0' ; aux2++){
-			str[aux2] = text[aux];
-			tolower(str[aux2]);
-			aux++;
-			idea = true;
-		}
-		words.pushback(str);
-		if (idea == false){
-			aux++;
-		}
-	}
-
-	delete[] str;
+template <class TYPE>
+int vector<TYPE>::size(){
+	return num_elements;
 }

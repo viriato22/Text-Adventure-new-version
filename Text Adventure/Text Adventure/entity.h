@@ -2,9 +2,11 @@
 #define ENTITY_H
 
 #include "String.h"
+#include "vector.h"
 
 enum entities{
 	ENTITY,
+	PLAYER,
 	CREATURE,
 	ITEM,
 	MAP
@@ -16,12 +18,15 @@ public:
 	int id;
 	String name;
 	String description;
+	entities type;
+	int position;
+	vector<entities*>* container;
 
 public:
-	entity(int id, String name, String description);
+	entity(String name, String description, int position);
 
 public:
-	virtual void look();
+	
 };
 
 #endif
